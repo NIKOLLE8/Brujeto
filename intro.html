@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brujeto</title>
+      <link rel="icon" href="img/icon2.png" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mountains of Christmas', cursive;
+            background: radial-gradient(ellipse at center, #1a1a1a 0%, #0d0d0d 50%, #000000 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: #e0e0e0;
+        }
+
+        /* Fondo animado con runas */
+        .runes-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .rune {
+            position: absolute;
+            font-size: 2rem;
+            color: #888;
+            animation: runeFloat 15s infinite linear;
+            user-select: none;
+            text-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+            z-index: 2;
+        }
+
+        @keyframes runeFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.1;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Niebla mística */
+        .fog {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(100, 100, 100, 0.1) 0%, transparent 70%);
+            animation: fogMove 20s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes fogMove {
+
+            0%,
+            100% {
+                transform: translateX(-50px) scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateX(50px) scale(1.1);
+                opacity: 0.1;
+            }
+        }
+
+        /* Contenedor principal horizontal */
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            padding: 0 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Panel izquierdo - Contenido */
+        .left-panel {
+            flex: 1;
+            max-width: 45%;
+            padding: 40px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+            border: 3px solid rgba(150, 150, 150, 0.3);
+
+            position: relative;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 22px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            from {
+                opacity: 0.5;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .title {
+            font-size: 5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+            letter-spacing: 4px;
+            animation: titlePulse 2s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+
+        @keyframes titlePulse {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes titleShine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #e0e0e0;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(201, 169, 110, 0.3);
+            animation: subtitleGlow 4s ease-in-out infinite alternate;
+            line-height: 1.3;
+        }
+
+
+        .enter-btn {
+            background: linear-gradient(45deg, #4a4a4a, #2a2a2a, #4a4a4a);
+            color: #e0e0e0;
+            border: 3px solid #777;
+            padding: 20px 50px;
+            font-size: 30px;
+            font-family: 'Mountains of Christmas', cursive;
+            font-weight: 700;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(100, 100, 100, 0.3);
+            border-color: #999;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .enter-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Panel derecho - Imagen */
+        .right-panel {
+            flex: 1;
+            max-width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow:
+                0 0 50px rgba(100, 100, 100, 0.4),
+                0 0 100px rgba(150, 150, 150, 0.2);
+            border: 4px solid rgba(200, 200, 200, 0.3);
+            filter: contrast(1.2) brightness(0.9);
+        }
+
+        /* Círculo mágico alrededor de la imagen */
+        .magic-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            border: 2px solid rgba(150, 150, 150, 0.3);
+            border-radius: 50%;
+            animation: circleRotate 30s linear infinite;
+        }
+
+        .magic-circle::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 1px solid rgba(200, 200, 200, 0.2);
+            border-radius: 50%;
+            animation: circleRotate 20s linear infinite reverse;
+        }
+
+        @keyframes circleRotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Orbes flotantes */
+        .orb {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(200, 200, 200, 0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: orbFloat 8s infinite ease-in-out;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+
+            25% {
+                transform: translateY(-30px) translateX(20px);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(-10px) translateX(-20px);
+                opacity: 0.5;
+            }
+
+            75% {
+                transform: translateY(-40px) translateX(10px);
+                opacity: 0.7;
+            }
+        }
+
+        /* Partículas específicas */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(150, 150, 150, 0.6);
+            border-radius: 50%;
+            animation: particleMove 12s infinite linear;
+        }
+
+        @keyframes particleMove {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.2;
+            }
+
+            100% {
+                transform: translate(100px, -100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .left-panel,
+            .right-panel {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .left-panel {
+                margin-bottom: 20px;
+                padding: 30px;
+            }
+
+            .title {
+                font-size: 4rem;
+            }
+
+            .subtitle {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+
+            .subtitle {
+                font-size: 1.5rem;
+            }
+
+            .enter-btn {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="runes-background" id="runesBackground"></div>
+    <div class="fog"></div>
+
+    <div class="main-container">
+        <div class="left-panel">
+            <h1 class="title">BRUJETO</h1>
+            <p class="subtitle">¿Los espíritus guardianes revelarán tu identidad?</p>
+            <button class="enter-btn" onclick="enterGame()">
+                Invocar Destino
+            </button>
+            <p style="text-align: center; margin-top: 15px; font-size: 15px; font-family: 'Cinzel', serif;">Nikolle Acuña - Julio Perez - Alonso Lucas </p>
+        </div>
+
+        <div class="right-panel">
+            <div class="image-container">
+                <div class="magic-circle"></div>
+                <img src="https://i.pinimg.com/736x/7b/78/40/7b78401b47ab922eb8034d2c3059c067.jpg"
+                    alt="Brujería Mística" class="main-image">
+                    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Runas místicas
+        const runes = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᚾ', 'ᛁ', 'ᛃ', 'ᛇ', 'ᛈ', 'ᛉ', 'ᛊ', 'ᛏ', 'ᛒ', 'ᛖ', 'ᛗ', 'ᛚ', 'ᛜ', 'ᛟ', 'ᛞ'];
+
+        function createRunes() {
+            const runesContainer = document.getElementById('runesBackground');
+
+            // Crear runas iniciales
+            for (let i = 0; i < 8; i++) {
+                const rune = document.createElement('div');
+                rune.className = 'rune';
+                rune.textContent = runes[Math.floor(Math.random() * runes.length)];
+                rune.style.left = Math.random() * 100 + '%';
+                rune.style.animationDelay = Math.random() * 15 + 's';
+                rune.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                rune.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+                runesContainer.appendChild(rune);
+            }
+
+            // Crear nuevas runas continuamente
+            setInterval(() => {
+                const rune = document.createElement('div');
+                rune.className = 'rune';
+                rune.textContent = runes[Math.floor(Math.random() * runes.length)];
+                rune.style.left = Math.random() * 100 + '%';
+                rune.style.animationDuration = (Math.random() * 8 + 12) + 's';
+                rune.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+                runesContainer.appendChild(rune);
+
+                setTimeout(() => {
+                    rune.remove();
+                }, 20000);
+            }, 100);
+        }
+
+        function createOrbs() {
+            const container = document.querySelector('.right-panel');
+
+            for (let i = 0; i < 12; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'orb';
+                orb.style.left = Math.random() * 100 + '%';
+                orb.style.top = Math.random() * 100 + '%';
+                orb.style.animationDelay = Math.random() * 8 + 's';
+                orb.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                container.appendChild(orb);
+            }
+        }
+
+        function createParticles() {
+            const body = document.body;
+
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                body.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 12000);
+            }, 500);
+        }
+
+        function enterGame() {
+            window.location.href = 'index.html'; // Redirigir al juego
+        }
+
+        // Efecto de cursor místico mejorado
+        document.addEventListener('mousemove', function (e) {
+            if (Math.random() < 0.1) { // Solo 10% de las veces
+                const trail = document.createElement('div');
+                trail.style.position = 'fixed';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                trail.style.width = '6px';
+                trail.style.height = '6px';
+                trail.style.background = 'radial-gradient(circle, rgba(200,200,200,0.8) 0%, transparent 70%)';
+                trail.style.borderRadius = '50%';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '1000';
+                trail.style.animation = 'trailFade 2s ease-out forwards';
+                document.body.appendChild(trail);
+
+                setTimeout(() => {
+                    trail.remove();
+                }, 2000);
+            }
+        });
+
+        // Animación de desvanecimiento del rastro
+        const trailStyle = document.createElement('style');
+        trailStyle.textContent = `
+            @keyframes trailFade {
+                0% { opacity: 1; transform: scale(1); }
+                100% { opacity: 0; transform: scale(0); }
+            }
+        `;
+        document.head.appendChild(trailStyle);
+
+        // Inicializar efectos
+        window.addEventListener('load', function () {
+            createRunes();
+            createOrbs();
+            createParticles();
+        });
+    </script>
+</body>
+
+</html>
