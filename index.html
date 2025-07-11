@@ -417,6 +417,10 @@
         </div>
     </div>
 
+    <audio id="background-audio" autoplay loop >
+        <source src="Sonido/Guitarra.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         // Runas místicas
         const runes = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᚾ', 'ᛁ', 'ᛃ', 'ᛇ', 'ᛈ', 'ᛉ', 'ᛊ', 'ᛏ', 'ᛒ', 'ᛖ', 'ᛗ', 'ᛚ', 'ᛜ', 'ᛟ', 'ᛞ'];
@@ -524,6 +528,23 @@
             createOrbs();
             createParticles();
         });
+
+        window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('background-audio');
+
+    // Esperar a que el usuario haga cualquier clic
+    function enableAudioOnFirstInteraction() {
+        audio.volume = 0.5;
+        audio.play().catch((e) => {
+            console.warn("El navegador bloqueó el autoplay:", e);
+        });
+        // Solo se necesita una vez
+        document.removeEventListener('click', enableAudioOnFirstInteraction);
+    }
+
+    document.addEventListener('click', enableAudioOnFirstInteraction);
+});
+
     </script>
 </body>
 
